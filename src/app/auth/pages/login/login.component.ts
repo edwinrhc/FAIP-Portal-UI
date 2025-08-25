@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -22,7 +23,10 @@ export class LoginComponent {
   errorMessage: string = '';
 
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router) {
   }
 
   onSubmit() {
@@ -36,6 +40,8 @@ export class LoginComponent {
 
           localStorage.setItem('token', res.token);
           this.loginForm.reset();
+
+          this.router.navigate(['/admin']);
         },
         error: (err: any) => {
           this.errorMessage = 'Credenciales incorrectas';
