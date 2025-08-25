@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
@@ -14,19 +14,34 @@ import {AuthService} from "../../services/auth.service";
 export class LoginComponent {
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required]],
     password: ['', Validators.required],
-  })
+  });
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  onSubmit(){
+
+  constructor(private fb: FormBuilder, private authService: AuthService) {
+  }
+
+  onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (res: any) => console.log('✅ Login exitoso', res),
-        error: (err: any) => console.error('❌ Error al iniciar sesión', err),
+      const {username, password} = this.loginForm.value;
+
+      this.authService.login({username, password}).subscribe({
+        next: (res: any) => {
+          this.successMessage = 'Inicio de sesión exitoso';
+          this.errorMessage = '';
+
+          localStorage.setItem('token', res.token);
+          this.loginForm.reset();
+        },
+        error: (err: any) => {
+          this.errorMessage = 'Credenciales incorrectas';
+          this.successMessage = '';
+        }
       });
     }
   }
-
 }
