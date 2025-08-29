@@ -1,0 +1,86 @@
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-md">
+  <h2 class="text-xl font-bold mb-4">Registro de Solicitud</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- Tipo de Solicitante -->
+    <label class="block mb-2 font-medium">Tipo de Solicitante</label>
+    <select formControlName="tipoSolicitante" class="border p-2 rounded w-full">
+      <option value="Persona Natural">Persona Natural</option>
+      <option value="JURIDICA">Persona Jurídica</option>
+    </select>
+
+    <!-- Persona Natural -->
+    <div *ngIf="form.value.tipoSolicitante === 'Persona Natural'" class="mt-3">
+      <input formControlName="nombres" placeholder="Nombres" class="border p-2 w-full my-1">
+      <input formControlName="apellidos_paterno" placeholder="Apellido Paterno" class="border p-2 w-full my-1">
+      <input formControlName="apellidos_materno" placeholder="Apellido Materno" class="border p-2 w-full my-1">
+    </div>
+
+    <!-- Persona Jurídica -->
+    <div *ngIf="form.value.tipoSolicitante === 'JURIDICA'" class="mt-3">
+      <input formControlName="razonSocial" placeholder="Razón Social" class="border p-2 w-full my-1">
+    </div>
+
+    <!-- Documento -->
+    <div class="grid grid-cols-2 gap-2 mt-3">
+      <input formControlName="tipoDocumento" placeholder="Tipo Documento" class="border p-2 w-full">
+      <input formControlName="numeroDocumento" placeholder="Número Documento" class="border p-2 w-full">
+    </div>
+
+    <!-- Email y Teléfono -->
+    <div class="grid grid-cols-2 gap-2 mt-3">
+      <input formControlName="email" placeholder="Correo electrónico" type="email" class="border p-2 w-full">
+      <input formControlName="telefono" placeholder="Teléfono" class="border p-2 w-full">
+    </div>
+
+    <!-- Dirección -->
+    <div>
+      <label for="departamento">Departamento</label>
+      <select id="departamento" formControlName="departamento">
+        <option *ngFor="let dep of departamentos" [value]="dep.id">
+          {{ dep.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <input formControlName="direccion" placeholder="Dirección" class="border p-2 w-full my-1">
+    <div class="grid grid-cols-3 gap-2 mt-2">
+      <input formControlName="distrito" placeholder="Distrito" class="border p-2">
+      <input formControlName="provincia" placeholder="Provincia" class="border p-2">
+
+    </div>
+
+    <!-- Descripción -->
+    <textarea formControlName="descripcion" placeholder="Descripción" class="border p-2 w-full my-3"></textarea>
+
+    <!-- Medio de entrega -->
+    <label class="block mb-2 font-medium">Medio de Entrega</label>
+    <select formControlName="medioEntrega" class="border p-2 rounded w-full">
+      <option value="DIGITAL">Digital</option>
+      <option value="FISICO">Físico</option>
+      <option value="PRESENCIAL">Presencial</option>
+    </select>
+
+    <!-- Modalidad -->
+    <label class="block mt-3 mb-2 font-medium">Modalidad de Notificación</label>
+    <select formControlName="modalidadNotificacion" class="border p-2 rounded w-full">
+      <option value="VIRTUAL">Virtual</option>
+      <option value="FISICA">Física</option>
+    </select>
+
+    <!-- Acepta términos -->
+    <label class="block mt-4">
+      <input type="checkbox" formControlName="aceptaTerminos" class="mr-2"> Acepto los términos y condiciones
+    </label>
+
+    <!-- Botón -->
+    <button type="submit" [disabled]="form.invalid"
+            class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+      Enviar Solicitud
+    </button>
+  </form>
+
+  <!-- Mensaje -->
+  <p *ngIf="mensaje" class="mt-4 text-green-600">{{ mensaje }}</p>
+</div>
