@@ -34,23 +34,54 @@
       <input formControlName="telefono" placeholder="Teléfono" class="border p-2 w-full">
     </div>
 
-    <!-- Dirección -->
-    <div>
-      <label for="departamento">Departamento</label>
-      <select id="departamento" formControlName="departamento">
-        <option *ngFor="let dep of departamentos" [value]="dep.id">
-          {{ dep.nombre }}
-        </option>
-      </select>
+    <div class="grid grid-cols-1 gap-3 mt-3">
+      <!--  Departamento-->
+      <div>
+        <label for="departamento" class="block mb-1 font-medium">Departamento</label>
+        <select id="departamento"
+                class="border p-2 rounded w-full"
+                formControlName="departamento">
+          <option [ngValue]="null" disabled>-- Seleccione --</option>
+          <option *ngFor="let dep of departamentos; trackBy: trackById" [ngValue]="dep.id">
+              {{dep.nombre}}
+          </option>
+        </select>
+        <small *ngIf="loadingDepartamentos" class="text-gray-500">Cargando...</small>
+      </div>
+      <!-- Provincia -->
+      <div>
+        <label for="provincia" class="block mb-1 font-medium">Provincia</label>
+        <select id="provincia"
+                class="border p-2 rounded w-full"
+                formControlName="provincia">
+          <option [ngValue]="null" disabled>-- Seleccione --</option>
+          <option *ngFor="let prov of provincias; trackBy: trackById" [ngValue]="prov.id">
+            {{ prov.nombre }}
+          </option>
+        </select>
+        <small *ngIf="loadingProvincias" class="text-gray-500">Cargando...</small>
+      </div>
+
+      <!-- Distrito -->
+      <div>
+        <label for="distrito" class="block mb-1 font-medium">Distrito</label>
+        <select id="distrito"
+                class="border p-2 rounded w-full"
+                formControlName="distrito">
+          <option [ngValue]="null" disabled>-- Seleccione --</option>
+          <option *ngFor="let dist of distritos; trackBy: trackById" [ngValue]="dist.id">
+            {{ dist.nombre }}
+          </option>
+        </select>
+        <small *ngIf="loadingDistritos" class="text-gray-500">Cargando...</small>
+      </div>
+
     </div>
 
-    <input formControlName="direccion" placeholder="Dirección" class="border p-2 w-full my-1">
-    <div class="grid grid-cols-3 gap-2 mt-2">
-      <input formControlName="distrito" placeholder="Distrito" class="border p-2">
-      <input formControlName="provincia" placeholder="Provincia" class="border p-2">
-
+    <div class="grid grid-cols-2 gap-2 mt-3">
+      <!-- Dirección -->
+      <input formControlName="direccion" placeholder="Dirección" class="border p-2 w-full my-1">
     </div>
-
     <!-- Descripción -->
     <textarea formControlName="descripcion" placeholder="Descripción" class="border p-2 w-full my-3"></textarea>
 
