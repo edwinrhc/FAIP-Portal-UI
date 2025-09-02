@@ -8,9 +8,12 @@ export interface SolicitudCreateRequest {
   tipoDocumento: string;
   numeroDocumento: string;
   pais?: string;
-  departamento?: string;
-  provincia?: string;
-  distrito?: string;
+  // departamento?: string;
+  // provincia?: string;
+  // distrito?: string;
+  departamentoId: number;
+  provinciaId: number;
+  distritoId: number;
   direccion?: string;
   email:string;
   telefono?: string;

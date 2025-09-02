@@ -4,7 +4,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 export function buildSolicitudesForm(fb: FormBuilder){
   return fb.group({
     // Datos Solicitante
-    tipoSolicitante: ['Persona Natural',Validators.required],
+    tipoSolicitante: [null,Validators.required],
     nombres:[''],
     apellidos_paterno:[''],
     apellidos_materno:[''],
@@ -19,9 +19,9 @@ export function buildSolicitudesForm(fb: FormBuilder){
     telefono:[''],
 
     // Ubigeo (guardamos IDs)
-    departamento:[{value: null, disabled: false}, Validators.required],
-    provincia:[{ value: null, disabled: false}, Validators.required],
-    distrito:[{ value: null, disabled: false}, Validators.required],
+    departamento:[{ value: null, disabled: false }, Validators.required],
+    provincia:   [{ value: null, disabled: true  }, Validators.required],
+    distrito:    [{ value: null, disabled: true  }, Validators.required],
     direccion:[''],
     pais: ['Perú'],
 
