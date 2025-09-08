@@ -42,9 +42,10 @@
           </label>
           <select id="tipoSolicitante" formControlName="tipoSolicitante"
                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
-            <option [ngValue]="null" disabled selected>— Seleccione —</option>
-            <option value="Persona Natural">Persona Natural</option>
-            <option value="JURIDICA">Persona Jurídica</option>
+            <option [ngValue]="null" disabled>— Seleccione —</option>
+            <!-- Usamos el enum -->
+            <option [ngValue]="TipoSolicitanteEnum.PERSONA_NATURAL">Persona Natural</option>
+            <option [ngValue]="TipoSolicitanteEnum.JURIDICA">Persona Jurídica</option>
           </select>
           <p class="mt-1 text-xs text-gray-500">Seleccione el tipo de persona que presenta la solicitud.</p>
           <p *ngIf="form.get('tipoSolicitante')?.touched && form.get('tipoSolicitante')?.invalid"
@@ -238,9 +239,10 @@
     <div class="flex items-center justify-between">
       <button type="button"
               class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
-              (click)="currentStep === 1 ? (form.reset({ tipoSolicitante: null, tipoDocumento: 'DNI', medioEntrega: 'DIGITAL', modalidadNotificacion: 'VIRTUAL', aceptaTerminos: false }); form.get('provincia')?.disable(); form.get('distrito')?.disable()) : goBack()">
+              (click)="currentStep === 1 ? onLimpiar() : goBack()">
         {{ currentStep === 1 ? 'Limpiar' : '← Anterior' }}
       </button>
+
 
       <ng-container *ngIf="currentStep < totalSteps; else enviarBtn">
         <button type="button"
