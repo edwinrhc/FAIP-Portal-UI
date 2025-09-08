@@ -95,9 +95,9 @@ export class SolicitudesComponent implements OnInit {
       modalidadNotificacion: String(raw.modalidadNotificacion),
       aceptaTerminos: Boolean(raw.aceptaTerminos),
 
-      departamentoId: Number(raw.departamento),
-      provinciaId: Number(raw.provincia),
-      distritoId: Number(raw.distrito),
+      departamento: Number(raw.departamento),
+      provincia: Number(raw.provincia),
+      distrito: Number(raw.distrito),
 
       telefono: raw.telefono ? String(raw.telefono) : '',
       direccion: raw.direccion ? String(raw.direccion) : '',

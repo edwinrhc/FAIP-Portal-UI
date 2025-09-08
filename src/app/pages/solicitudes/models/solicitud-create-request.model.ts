@@ -11,9 +11,9 @@ export interface SolicitudCreateRequest {
   // departamento?: string;
   // provincia?: string;
   // distrito?: string;
-  departamentoId: number;
-  provinciaId: number;
-  distritoId: number;
+  departamento: number;
+  provincia: number;
+  distrito: number;
   direccion?: string;
   email:string;
   telefono?: string;
