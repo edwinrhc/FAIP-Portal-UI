@@ -47,6 +47,7 @@ export class SolicitudesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDepartamentos();
+    this.form.get('pais')?.setValue('Perú');
 
     // Departamentos -> Provincias
     this.form.get('departamento')!.valueChanges.subscribe((depId: number | null) => {
@@ -72,6 +73,23 @@ export class SolicitudesComponent implements OnInit {
         this.loadDistritos(provId);
       }
     });
+
+    this.form.get('residenciaTipo')?.valueChanges.subscribe(value => {
+      if(value === 'Peru'){
+        this.form.get('pais')?.setValue('Perú');
+        this.form.get('pais')?.disable();
+        this.form.get('departamento')?.reset();
+        this.form.get('provincia')?.reset();
+        this.form.get('distrito')?.reset();
+        this.form.get('direccion')?.reset();
+
+      } else {
+        this.form.get('pais')?.reset();
+        this.form.get('pais')?.enable();
+        this.form.get('direccion')?.reset();
+      }
+    })
+
   }
 
   onSubmit() {
@@ -101,7 +119,7 @@ export class SolicitudesComponent implements OnInit {
 
       telefono: raw.telefono ? String(raw.telefono) : '',
       direccion: raw.direccion ? String(raw.direccion) : '',
-      pais: String(raw.pais ?? 'Perú'),
+      pais: String(raw.pais),
       observaciones: raw.observaciones ? String(raw.observaciones) : '',
 
       nombres: esPN ? String(raw.nombres ?? '') : '',
@@ -116,7 +134,7 @@ export class SolicitudesComponent implements OnInit {
         this.form.reset({
           tipoSolicitante: null,
           tipoDocumento: 'DNI',
-          pais: 'Perú',
+          pais: '',
           medioEntrega: 'DIGITAL',
           modalidadNotificacion: 'VIRTUAL',
           aceptaTerminos: false
@@ -274,5 +292,7 @@ export class SolicitudesComponent implements OnInit {
     this.form.get('provincia')?.disable();
     this.form.get('distrito')?.disable();
   }
+
+
 
 }

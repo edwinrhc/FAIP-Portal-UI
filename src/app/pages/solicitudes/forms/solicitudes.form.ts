@@ -9,32 +9,39 @@ export function buildSolicitudesForm(fb: FormBuilder){
     apellidos_paterno:[''],
     apellidos_materno:[''],
     razonSocial:[''],
-
     //Documento
-    tipoDocumento:['DNI',Validators.required],
+    tipoDocumento:['',Validators.required],
     numeroDocumento:['',[Validators.required, Validators.minLength(4)]],
+    // Ubigeo (guardamos IDs)
+    // 👇 agrega este campo nuevo
+    residenciaTipo: ['Peru', Validators.required],
 
+    pais: ['', Validators.required],
+    departamento:[{ value: null, disabled: false }],
+    provincia:   [{ value: null, disabled: true  }],
+    distrito:    [{ value: null, disabled: true  }],
+    direccion:['',Validators.required],
     // Contacto
     email:['',[Validators.required, Validators.email]],
     telefono:[''],
-
-    // Ubigeo (guardamos IDs)
-    departamento:[{ value: null, disabled: false }, Validators.required],
-    provincia:   [{ value: null, disabled: true  }, Validators.required],
-    distrito:    [{ value: null, disabled: true  }, Validators.required],
-    direccion:[''],
-    pais: ['Perú'],
+    edad:[''],
+    sexo:[''],
+    autoidentificacionEtnica:[''],
+    lenguaMaterna:[''],
+    discapacidad:[''],
+    areaGeografica:[''],
+    areaPertenece:[''],
 
     // Contenido
     descripcion: ['', [Validators.required, Validators.minLength(10)]],
-
-    // Preferencias
-    medioEntrega: ['DIGITAL', Validators.required],
-    modalidadNotificacion: ['VIRTUAL', Validators.required],
-
+    observaciones: [''],
     // Otros
     archivoAdjunto: [null],
-    observaciones: [''],
+    // Preferencias
+    medioEntrega: ['',Validators.required],
+    otrosMediosEntrega:[''],
+    modalidadNotificacion: ['', Validators.required],
+    otrosModalidadesNotificacion:[''],
     aceptaTerminos: [false, Validators.requiredTrue],
   });
 }

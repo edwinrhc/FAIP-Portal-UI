@@ -1,10 +1,13 @@
 <!-- Header + Progreso -->
-<header class="max-w-3xl mx-auto mt-6 mb-4">
+<header class="max-w-6xl mx-auto mt-6 mb-4">
   <div class="flex items-center gap-3">
-    <div class="w-10 h-10 rounded bg-blue-900"></div>
+    <!--    <div class="w-10 h-10 rounded bg-blue-900"></div>-->
     <div>
-      <p class="text-sm text-gray-500 leading-tight">Plataforma de Trámites</p>
-      <h1 class="text-2xl font-semibold text-gray-900 leading-tight">Registro de Solicitud</h1>
+      <h1 class="text-4xl font-bold text-gray-900 leading-tight mb-5">Solicitud de Acceso a la Información Pública</h1>
+      <p class="text-sm text-justify font-semibold text-gray-500 leading-tight mt-4">Acceder a la información pública es
+        tu derecho. Cualquier persona puede solicitar y recibir información que posee o produce cualquier entidad
+        estatal, con las excepciones previstas en la Ley.</p>
+      <h1 class="text-sm font-semibold text-gray-900 leading-tight mt-4">Registro de Solicitud</h1>
     </div>
   </div>
 
@@ -23,22 +26,22 @@
   </p>
 </header>
 
-<div class="max-w-3xl mx-auto grid lg:grid-cols-3 gap-6 pb-12">
+<div class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6 pb-12">
   <!-- Formulario -->
   <form class="lg:col-span-2 space-y-6" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
 
     <!-- PASO 1: Solicitante -->
     <section *ngIf="currentStep === 1" class="bg-white rounded-xl shadow-sm ring-1 ring-gray-200">
       <div class="px-5 py-4 border-b border-gray-200 rounded-t-xl bg-gray-50">
-        <h2 class="text-base font-semibold text-gray-900">Datos del solicitante</h2>
+        <h2 class="text-2xl font-bold text-gray-900">Datos del solicitante</h2>
         <p class="text-xs text-gray-500 mt-1">Identifique al solicitante y datos de contacto.</p>
       </div>
       <div class="p-5 space-y-4">
 
         <!-- Tipo de Solicitante -->
         <div>
-          <label for="tipoSolicitante" class="block text-sm font-medium text-gray-800">
-            Tipo de solicitante <span class="text-red-600">*</span>
+          <label for="tipoSolicitante" class="block text-lg font-medium text-blue-900">
+            1. Seleccione el tipo de persona <span class="text-red-600">*</span>
           </label>
           <select id="tipoSolicitante" formControlName="tipoSolicitante"
                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
@@ -53,46 +56,75 @@
         </div>
 
         <!-- Persona Natural -->
-        <div *ngIf="isPersonaNatural()" class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label for="tipoDocumento" class="block text-sm font-medium text-gray-800">
-              Tipo de documento <span class="text-red-600">*</span>
-            </label>
-            <input id="tipoDocumento" formControlName="tipoDocumento" placeholder="DNI"
-                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
-          </div>
-          <div>
-            <label for="numeroDocumento" class="block text-sm font-medium text-gray-800">
-              N° de documento <span class="text-red-600">*</span>
-            </label>
-            <input id="numeroDocumento" formControlName="numeroDocumento" placeholder="Ej. 12345678"
-                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
-            <p *ngIf="form.get('numeroDocumento')?.touched && form.get('numeroDocumento')?.invalid"
-               class="mt-1 text-sm text-red-600">Ingrese un número válido.</p>
-          </div>
+        <!-- Solo visible si es persona natural -->
+        <!-- Solo visible si es persona natural -->
+        <div *ngIf="isPersonaNatural()" class="space-y-6">
+          <!-- 1.1 Documento -->
+          <fieldset class="bg-blue-100 border border-blue-200 rounded-lg p-4">
+            <legend class="text-lg font-semibold text-blue-900 px-2">
+              1.1 Tipo y número de documento
+            </legend>
 
-          <div class="sm:col-span-2">
-            <label for="nombres" class="block text-sm font-medium text-gray-800">
-              Nombres <span class="text-red-600">*</span>
-            </label>
-            <input id="nombres" formControlName="nombres" placeholder="Nombres"
-                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
-          </div>
-          <div>
-            <label for="apellidos_paterno" class="block text-sm font-medium text-gray-800">
-              Apellido paterno <span class="text-red-600">*</span>
-            </label>
-            <input id="apellidos_paterno" formControlName="apellidos_paterno" placeholder="Apellido paterno"
-                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
-          </div>
-          <div>
-            <label for="apellidos_materno" class="block text-sm font-medium text-gray-800">
-              Apellido materno <span class="text-red-600">*</span>
-            </label>
-            <input id="apellidos_materno" formControlName="apellidos_materno" placeholder="Apellido materno"
-                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
-          </div>
+            <div class="grid sm:grid-cols-2 gap-4 mt-3">
+              <div>
+                <label for="tipoDocumento" class="block text-sm font-medium text-gray-800">
+                  Tipo de documento <span class="text-red-600">*</span>
+                </label>
+                <select id="tipoDocumento" formControlName="tipoDocumento"
+                        class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
+                  <option Value="" disabled>— Seleccione —</option>
+                  <option value="DNI">DNI</option>
+                  <option value="C. EXTRANJERIA">C. EXTRANJERÍA</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="numeroDocumento" class="block text-sm font-medium text-gray-800">
+                  Número de documento <span class="text-red-600">*</span>
+                </label>
+                <input id="numeroDocumento" formControlName="numeroDocumento" placeholder="Ej. 12345678"
+                       class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+                <p *ngIf="form.get('numeroDocumento')?.touched && form.get('numeroDocumento')?.invalid"
+                   class="mt-1 text-sm text-red-600">Ingrese un número válido.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 1.2 Nombres -->
+          <fieldset class="bg-blue-100 border border-blue-200 rounded-lg p-4">
+            <legend class="text-lg font-semibold text-blue-900 px-2">
+              1.2 Nombres y apellidos del solicitante
+            </legend>
+
+            <div class="grid sm:grid-cols-2 gap-4 mt-3">
+              <div class="sm:col-span-2">
+                <label for="nombres" class="block text-sm font-medium text-gray-800">
+                  Nombres <span class="text-red-600">*</span>
+                </label>
+                <input id="nombres" formControlName="nombres" placeholder="Nombres"
+                       class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+              </div>
+
+              <div>
+                <label for="apellidos_paterno" class="block text-sm font-medium text-gray-800">
+                  Apellido paterno <span class="text-red-600">*</span>
+                </label>
+                <input id="apellidos_paterno" formControlName="apellidos_paterno" placeholder="Apellido paterno"
+                       class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+              </div>
+
+              <div>
+                <label for="apellidos_materno" class="block text-sm font-medium text-gray-800">
+                  Apellido materno <span class="text-red-600">*</span>
+                </label>
+                <input id="apellidos_materno" formControlName="apellidos_materno" placeholder="Apellido materno"
+                       class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+              </div>
+            </div>
+          </fieldset>
+
         </div>
+
 
         <!-- Persona Jurídica -->
         <div *ngIf="isJuridica()">
@@ -102,6 +134,132 @@
           <input id="razonSocial" formControlName="razonSocial" placeholder="Razón social"
                  class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
         </div>
+
+
+        <!--        <div class="bg-white rounded-xl shadow-sm ring-1 ring-gray-200">-->
+        <!-- Título -->
+        <!--          <div class="px-5 py-4 border-b border-gray-200 rounded-t-xl bg-gray-50">-->
+        <!--            <h2 class="text-base font-semibold text-gray-900">Ubigeo y dirección</h2>-->
+        <!--          </div>-->
+
+        <div class="space-y-6">
+
+          <!-- Radios: Perú / Extranjero -->
+          <fieldset class="bg-blue-100 border border-blue-200 rounded-lg p-4">
+            <legend class="text-lg font-semibold text-blue-900 px-2">
+             2. País de residencia
+            </legend>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+              <label class="inline-flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="residenciaTipo"
+                  class="accent-blue-600"
+                  formControlName="residenciaTipo"
+                  value="Peru"/>
+                <span>Perú</span>
+              </label>
+              <label class="inline-flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="residenciaTipo"
+                  class="accent-blue-600"
+                  formControlName="residenciaTipo"
+                  value="Extranjero"/>
+                <span>Extranjero</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- País + Ubigeo -->
+          <div class="pl-4 sm:pl-4 space-y-6">
+            <fieldset class="bg-blue-100 border border-blue-200 rounded-lg p-4">
+              <legend class="text-base font-semibold text-blue-900 px-2">
+                2.1. Domicilio
+              </legend>
+
+              <div class="grid sm:grid-cols-3 gap-4">
+                <!-- País -->
+                <div class="sm:col-span-3">
+                  <label for="pais" class="block text-sm font-medium text-gray-800">
+                    País <span class="text-red-600">*</span>
+                  </label>
+                  <input
+                    id="pais"
+                    type="text"
+                    formControlName="pais"
+                    [readOnly]="form.get('residenciaTipo')?.value === 'Peru'"
+                    [value]="form.get('residenciaTipo')?.value === 'Peru' ? 'Perú' : form.get('pais')?.value"
+                    placeholder="Ingrese el país"
+                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+                </div>
+
+                <!-- Ubigeo (solo si es Perú) -->
+                <ng-container *ngIf="form.get('residenciaTipo')?.value === 'Peru'">
+                  <div>
+                    <label for="departamento" class="block text-sm font-medium text-gray-800">
+                      Departamento
+                    </label>
+                    <select id="departamento" formControlName="departamento"
+                            class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
+                      <option [ngValue]="null" disabled>— Seleccione —</option>
+                      <option *ngFor="let dep of departamentos; trackBy: trackById" [ngValue]="dep.id">
+                        {{ dep.nombre }}
+                      </option>
+                    </select>
+                    <p class="mt-1 text-xs text-gray-500" *ngIf="loadingDepartamentos">Cargando departamentos…</p>
+                  </div>
+
+                  <div>
+                    <label for="provincia" class="block text-sm font-medium text-gray-800">
+                      Provincia
+                    </label>
+                    <select id="provincia" formControlName="provincia"
+                            class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
+                      <option [ngValue]="null" disabled>— Seleccione —</option>
+                      <option *ngFor="let prov of provincias; trackBy: trackById" [ngValue]="prov.id">
+                        {{ prov.nombre }}
+                      </option>
+                    </select>
+                    <p class="mt-1 text-xs text-gray-500" *ngIf="loadingProvincias">Cargando provincias…</p>
+                  </div>
+
+                  <div>
+                    <label for="distrito" class="block text-sm font-medium text-gray-800">
+                      Distrito
+                    </label>
+                    <select id="distrito" formControlName="distrito"
+                            class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
+                      <option [ngValue]="null" disabled>— Seleccione —</option>
+                      <option *ngFor="let dist of distritos; trackBy: trackById" [ngValue]="dist.id">
+                        {{ dist.nombre }}
+                      </option>
+                    </select>
+                    <p class="mt-1 text-xs text-gray-500" *ngIf="loadingDistritos">Cargando distritos…</p>
+                  </div>
+                </ng-container>
+              </div>
+            </fieldset>
+            <!-- Dirección -->
+            <fieldset class="bg-blue-100 border border-blue-200 rounded-lg p-4">
+              <legend class="text-base font-semibold text-blue-900 px-2">
+                2.2 Dirección
+              </legend>
+              <label for="direccion" class="block text-sm font-medium text-gray-800">
+                Dirección <span class="text-red-600">*</span>
+              </label>
+              <input
+                id="direccion"
+                formControlName="direccion"
+                placeholder="Av., Jr., Calle…"
+                class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+            </fieldset>
+          </div>
+        </div>
+
+
+        <!--        </div>-->
+
 
         <!-- Contacto -->
         <div class="grid sm:grid-cols-2 gap-4">
@@ -114,71 +272,258 @@
             <p *ngIf="form.get('email')?.touched && form.get('email')?.invalid"
                class="mt-1 text-sm text-red-600">Ingrese un correo válido.</p>
           </div>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-4">
           <div>
             <label for="telefono" class="block text-sm font-medium text-gray-800">Teléfono</label>
-            <input id="telefono" formControlName="telefono" placeholder="Opcional"
+            <span class="text-sm text-gray-600 mt-3">(Opcional)</span>
+            <input id="telefono" formControlName="telefono" placeholder=""
+                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+          </div>
+          <div>
+            <label for="edad" class="block text-sm font-medium text-gray-800">
+              Edad
+            </label>
+            <span class="text-sm text-gray-600 mt-3">(Opcional)</span>
+            <input id="edad" type="number" formControlName="edad" placeholder="Opcional"
+                   class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+          </div>
+
+          <div>
+            <label for="sexo" class="block text-sm font-medium text-gray-800">
+              Sexo
+            </label>
+            <span class="text-sm text-gray-600 mt-3">(Opcional)</span>
+            <select id="sexo" formControlName="sexo"
+                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
+              <option Value="" disabled>— Seleccione —</option>
+              <!-- Usamos el enum -->
+              <option value="Hombre">Hombre</option>
+              <option value="Mujer">Mujer</option>
+            </select>
+          </div>
+
+        </div>
+
+
+        <div class="grid sm:grid-cols-3 gap-4">
+
+          <div>
+            <label for="autoidentificacionEtnica" class="block text-sm font-medium text-gray-800">
+              Autoidentificación étnica
+            </label>
+            <span class="text-sm text-gray-600 mt-3">(Opcional)</span>
+
+            <select id="autoidentificacionEtnica" formControlName="autoidentificacionEtnica"
+                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
+              <option Value="" disabled>— Seleccione —</option>
+              <!-- Usamos el enum -->
+              <option value="Quechua">Quechua</option>
+              <option value="Aimara">Aimara</option>
+              <option value="Indigena u originario de la Amazonia">Indígena u originario de la Amazonía</option>
+              <option value="Perteneciente o parte de otro pueblo indígena u originario">Perteneciente o parte de otro
+                pueblo indígena u originario
+              </option>
+              <option value="Negro, moreno, zambo, mulato, afrodescendiente, o parte del pueblo afroperuano">Negro,
+                moreno, zambo, mulato, afrodescendiente, o parte del pueblo afroperuano
+              </option>
+              <option value="Blanco">Blanco</option>
+              <option value="Mestizo">Mestizo</option>
+              <option value="No sabe/ no responde">No sabe/ no responde</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="lenguaMaterna" class="block text-sm font-medium text-gray-800">
+              Lengua materna
+            </label>
+            <span class="text-sm text-gray-600 mt-3">(Opcional)</span>
+
+            <select id="lenguaMaterna" formControlName="lenguaMaterna"
+                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
+              <option Value="" disabled>— Seleccione —</option>
+              <!-- Usamos el enum -->
+              <option value="Quechua">Quechua</option>
+              <option value="Aimara">Aimara</option>
+              <option value="Ashaninka">Ashaninka</option>
+              <option value="Awajún/Aguaruna">Awajún/Aguaruna
+              </option>
+              <option value="Shipibo - Konibo">Shipibo - Konibo
+              </option>
+              <option value="Shawi/Chayahuita">Shawi/Chayahuita</option>
+              <option value="Matsigenka/Machiguenga">Matsigenka/Machiguenga</option>
+              <option value="Achuar">Achuar</option>
+              <option value="Otra lengua indígena u originaria">Otra lengua indígena u originaría</option>
+              <option value="Castellano">Castellano</option>
+              <option value="Portugues">Portugués</option>
+              <option value="Otra lengua extranjera">Otra lengua extranjera</option>
+              <option value="Lengua de señas persuanas">Lengua de señas persuanas</option>
+              <option value="No escucha/o ni habla/o">No escucha/o ni habla/o</option>
+              <option value="No sabe/ no responde">No sabe/ no responde</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="discapacidad" class="block text-sm font-medium text-gray-800">
+              Persona con discapacidad
+            </label>
+            <span class="text-sm text-gray-600 mt-3">(Opcional)</span>
+
+            <select id="discapacidad" formControlName="discapacidad"
+                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
+              <option Value="" disabled>— Seleccione —</option>
+              <!-- Usamos el enum -->
+              <option value="Si">Si</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="areaGeografica" class="block text-sm font-medium text-gray-800">
+              Área geográfica de procedencia
+            </label>
+            <span class="text-sm text-gray-600 mt-3">(Opcional)</span>
+            <input id="areaGeografica" type="text" formControlName="areaGeografica" placeholder=""
                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
           </div>
         </div>
-
       </div>
     </section>
-
     <!-- PASO 2: Ubigeo + Detalle -->
     <section *ngIf="currentStep === 2" class="space-y-6">
-      <!-- Ubigeo y dirección -->
+
+      <!--      <div class="bg-white rounded-xl shadow-sm ring-1 ring-gray-200">
+              &lt;!&ndash; Título &ndash;&gt;
+              <div class="px-5 py-4 border-b border-gray-200 rounded-t-xl bg-gray-50">
+                <h2 class="text-base font-semibold text-gray-900">Ubigeo y dirección</h2>
+              </div>
+
+              <div class="p-5 space-y-6">
+                &lt;!&ndash; Radios: Perú / Extranjero &ndash;&gt;
+                <fieldset>
+                  <legend class="block text-sm font-medium text-gray-800 mb-2">
+                    País de residencia
+                  </legend>
+                  <div class="flex gap-8">
+                    <label class="inline-flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="residenciaTipo"
+                        class="accent-blue-600"
+                        formControlName="residenciaTipo"
+                        value="Peru"/>
+                      <span>Perú</span>
+                    </label>
+                    <label class="inline-flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="residenciaTipo"
+                        class="accent-blue-600"
+                        formControlName="residenciaTipo"
+                        value="Extranjero"/>
+                      <span>Extranjero</span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                &lt;!&ndash; Campos dinámicos &ndash;&gt;
+                <div class="grid sm:grid-cols-3 gap-4">
+                  &lt;!&ndash; Campo País (siempre visible) &ndash;&gt;
+                  <div>
+                    <label for="pais" class="block text-sm font-medium text-gray-800">
+                      País <span class="text-red-600">*</span>
+                    </label>
+                    <input
+                      id="pais"
+                      type="text"
+                      formControlName="pais"
+                      [readOnly]="form.get('residenciaTipo')?.value === 'Peru'"
+                      [value]="form.get('residenciaTipo')?.value === 'Peru' ? 'Perú': form.get('pais')?.value"
+                      placeholder="Ingrese el país"
+                      class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+                  </div>
+
+                  &lt;!&ndash; Ubigeo solo si es Perú &ndash;&gt;
+                  <ng-container *ngIf="form.get('residenciaTipo')?.value === 'Peru'">
+                    <div>
+                      <label for="departamento" class="block text-sm font-medium text-gray-800">
+                        Departamento
+                      </label>
+                      <select
+                        id="departamento"
+                        formControlName="departamento"
+                        class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
+                        <option [ngValue]="null" disabled>— Seleccione —</option>
+                        <option *ngFor="let dep of departamentos; trackBy: trackById" [ngValue]="dep.id">
+                          {{ dep.nombre }}
+                        </option>
+                      </select>
+                      <p class="mt-1 text-xs text-gray-500" *ngIf="loadingDepartamentos">Cargando departamentos…</p>
+                    </div>
+
+                    <div>
+                      <label for="provincia" class="block text-sm font-medium text-gray-800">
+                        Provincia
+                      </label>
+                      <select
+                        id="provincia"
+                        formControlName="provincia"
+                        class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
+                        <option [ngValue]="null" disabled>— Seleccione —</option>
+                        <option *ngFor="let prov of provincias; trackBy: trackById" [ngValue]="prov.id">
+                          {{ prov.nombre }}
+                        </option>
+                      </select>
+                      <p class="mt-1 text-xs text-gray-500" *ngIf="loadingProvincias">Cargando provincias…</p>
+                    </div>
+
+                    <div>
+                      <label for="distrito" class="block text-sm font-medium text-gray-800">
+                        Distrito
+                      </label>
+                      <select
+                        id="distrito"
+                        formControlName="distrito"
+                        class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
+                        <option [ngValue]="null" disabled>— Seleccione —</option>
+                        <option *ngFor="let dist of distritos; trackBy: trackById" [ngValue]="dist.id">
+                          {{ dist.nombre }}
+                        </option>
+                      </select>
+                      <p class="mt-1 text-xs text-gray-500" *ngIf="loadingDistritos">Cargando distritos…</p>
+                    </div>
+                  </ng-container>
+                </div>
+
+                &lt;!&ndash; Dirección &ndash;&gt;
+                <div>
+                  <label for="direccion" class="block text-sm font-medium text-gray-800">
+                    Dirección <span class="text-red-600">*</span>
+                  </label>
+                  <input
+                    id="direccion"
+                    formControlName="direccion"
+                    placeholder="Av., Jr., Calle…"
+                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
+                </div>
+              </div>
+            </div>-->
+      <!--      Area que Pertenece -->
       <div class="bg-white rounded-xl shadow-sm ring-1 ring-gray-200">
         <div class="px-5 py-4 border-b border-gray-200 rounded-t-xl bg-gray-50">
-          <h2 class="text-base font-semibold text-gray-900">Ubigeo y dirección</h2>
+          <label for="areaPertenece" class="text-base font-semibold text-gray-900">Área a la que pertenece la
+            información</label>
+
         </div>
         <div class="p-5 space-y-4">
-          <div class="grid sm:grid-cols-3 gap-4">
-            <div>
-              <label for="departamento" class="block text-sm font-medium text-gray-800">
-                Departamento <span class="text-red-600">*</span>
-              </label>
-              <select id="departamento" formControlName="departamento"
-                      class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
-                <option [ngValue]="null" disabled>— Seleccione —</option>
-                <option *ngFor="let dep of departamentos; trackBy: trackById" [ngValue]="dep.id">
-                  {{ dep.nombre }}
-                </option>
-              </select>
-              <p class="mt-1 text-xs text-gray-500" *ngIf="loadingDepartamentos">Cargando departamentos…</p>
-            </div>
-
-            <div>
-              <label for="provincia" class="block text-sm font-medium text-gray-800">
-                Provincia <span class="text-red-600">*</span>
-              </label>
-              <select id="provincia" formControlName="provincia"
-                      class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
-                <option [ngValue]="null" disabled>— Seleccione —</option>
-                <option *ngFor="let prov of provincias; trackBy: trackById" [ngValue]="prov.id">
-                  {{ prov.nombre }}
-                </option>
-              </select>
-              <p class="mt-1 text-xs text-gray-500" *ngIf="loadingProvincias">Cargando provincias…</p>
-            </div>
-
-            <div>
-              <label for="distrito" class="block text-sm font-medium text-gray-800">
-                Distrito <span class="text-red-600">*</span>
-              </label>
-              <select id="distrito" formControlName="distrito"
-                      class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 disabled:bg-gray-100">
-                <option [ngValue]="null" disabled>— Seleccione —</option>
-                <option *ngFor="let dist of distritos; trackBy: trackById" [ngValue]="dist.id">
-                  {{ dist.nombre }}
-                </option>
-              </select>
-              <p class="mt-1 text-xs text-gray-500" *ngIf="loadingDistritos">Cargando distritos…</p>
-            </div>
-          </div>
-
-          <div>
-            <label for="direccion" class="block text-sm font-medium text-gray-800">Dirección</label>
-            <input id="direccion" formControlName="direccion" placeholder="Av., Jr., Calle…"
+          <span class="text-sm text-gray-600 mt-3">Este dato no es obligatorio, pero puede ayudarnos a acelerar la atención. Si no conoces el área, deja este campo en blanco.</span>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <input id="areaPertenece" type="text" formControlName="areaPertenece" placeholder=""
                    class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"/>
           </div>
         </div>
@@ -198,18 +543,67 @@
                       class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600"></textarea>
           </div>
 
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label for="medioEntrega" class="block text-sm font-medium text-gray-800">
-                Medio de entrega <span class="text-red-600">*</span>
-              </label>
-              <select id="medioEntrega" formControlName="medioEntrega"
-                      class="mt-1 block w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600">
-                <option value="DIGITAL">Digital</option>
-                <option value="FISICO">Físico</option>
-                <option value="PRESENCIAL">Presencial</option>
-              </select>
-            </div>
+          <div class="grid sm:grid-cols-5 gap-4">
+            <fieldset class="sm:col-span-5">
+              <legend class="block text-sm font-medium text-gray-800 mb-2">
+                Forma de entrega de la información
+              </legend>
+              <!--              Mensaje-->
+              <p class="text-sm text-gray-600 mb-3">
+                Si no seleccionas una opción, se entregará el pedido como copia simple correspondiente,
+                de acuerdo al Decreto Supremo N° 164-2020-PCM
+              </p>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <label class="inline-flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="medioEntrega"
+                    class="accent-blue-600"
+                    formControlName="medioEntrega"
+                    value="Copia simple"/>
+                  <span>Copia simple</span>
+                </label>
+                <label class="inline-flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="medioEntrega"
+                    class="accent-blue-600"
+                    formControlName="medioEntrega"
+                    value="CD"/>
+                  <span>CD</span>
+                </label>
+                <label class="inline-flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="medioEntrega"
+                    class="accent-blue-600"
+                    formControlName="medioEntrega"
+                    value="Correo electrónico"/>
+                  <span>Correo electrónico</span>
+                </label>
+                <label class="inline-flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="medioEntrega"
+                    class="accent-blue-600"
+                    formControlName="medioEntrega"
+                    value="Aplicaciones móviles"/>
+                  <span>Aplicaciones móviles de mensajeria instantanea</span>
+                </label>
+                <label class="inline-flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="medioEntrega"
+                    class="accent-blue-600"
+                    formControlName="medioEntrega"
+                    value="Otro"/>
+                  <span>Otro</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div>
             <div>
               <label for="modalidadNotificacion" class="block text-sm font-medium text-gray-800">
                 Modalidad de notificación <span class="text-red-600">*</span>
@@ -233,6 +627,8 @@
              class="mt-1 text-sm text-red-600">Debes aceptar los términos para continuar.</p>
         </div>
       </div>
+
+
     </section>
 
     <!-- Navegación (botonera) -->
@@ -257,7 +653,10 @@
         <button type="submit"
                 class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-60"
                 [disabled]="form.invalid || !isStep2Valid()">
-          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.5 10a7.5 7.5 0 1115 0 7.5 7.5 0 01-15 0zm8.5-3a1 1 0 10-2 0v2.5H6.5a1 1 0 100 2H9v2.5a1 1 0 102 0V11h2.5a1 1 0 100-2H11V7z"/></svg>
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path
+              d="M2.5 10a7.5 7.5 0 1115 0 7.5 7.5 0 01-15 0zm8.5-3a1 1 0 10-2 0v2.5H6.5a1 1 0 100 2H9v2.5a1 1 0 102 0V11h2.5a1 1 0 100-2H11V7z"/>
+          </svg>
           Enviar solicitud
         </button>
       </ng-template>
